@@ -1,0 +1,117 @@
+version: '2'
+
+services:
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    ports:
+      - 8989:8989
+    volumes:
+      - /dev/rtc:/dev/rtc:ro
+      - /mnt/data/config/sonarr:/config
+      - /mnt/data/downloads:/downloads
+      - /mnt/data/videos/tv:/tv
+      # - sonarr-config:/config
+      # - downloads:/downloads
+      # - tv:/tv
+    environment:
+      - PUID=1000
+      - PGID=100
+      # - PUID=613
+      # - PGID=611
+  couchpotato:
+    image: linuxserver/couchpotato
+    container_name: couchpotato
+    ports:
+      - 5050:5050
+    volumes:
+      - /mnt/data/config/couchpotato:/config
+      - /mnt/data/downloads:/downloads
+      - /mnt/data/videos/movies:/movies
+      # - couchpotato-config:/config
+      # - downloads:/downloads
+      # - tv:/tv
+    environment:
+      - TZ=Europe/Paris
+      - PUID=1000
+      - PGID=100
+      # - PUID=995
+      # - PGID=995
+  transmission:
+    image: haugene/transmission-openvpn
+    container_name: transmission
+    restart: always
+    privileged: true
+    # user: "1000:100"
+    ports:
+      - 9091:9091
+    environment:
+      - OPENVPN_PROVIDER=PIA
+      - OPENVPN_CONFIG=Switzerland
+      - OPENVPN_USERNAME=XXX
+      - OPENVPN_PASSWORD=XXX
+      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+      - TRANSMISSION_DOWNLOAD_DIR=/downloads
+      - TRANSMISSION_DOWNLOAD-QUEUE-SIZE=20
+      - TRANSMISSION_RPC_WHITELIST=*.*.*.*
+      - TRANSMISSION_RATIO_LIMIT=0
+      - TRANSMISSION_RATIO_LIMIT_ENABLED=true
+      # - TRANSMISSION_UMASK=0
+      # - LOCAL_NETWORK=10.115.192.244/25
+    volumes:
+      # - ./data/config/transmission:/data
+      # - transmission-config:/config
+      # - ./data/config/transmission:/config  # Passwords
+      - /mnt/data/config/transmission:/data/transmission-home
+      - /mnt/data/downloads:/downloads
+      - /mnt/data/.incomplete:/data/incomplete
+      - /mnt/data/.watchdir:/data/watch
+      - /etc/localtime:/etc/localtime:ro
+  transmission-proxy:
+    image: haugene/transmission-openvpn-proxy
+    container_name: transmission-proxy
+    links:
+      - transmission
+    ports:
+      - 8080:8080
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+  nzbget:
+    image: linuxserver/nzbget
+    container_name: nzbget
+    ports:
+      - 6789:6789
+    environment:
+      - TZ=Europe/Paris
+      - PUID=1000
+      - PGID=100
+      # - PUID=612
+      # - PGID=610
+    volumes:
+      - /mnt/data/config/nzbget:/config
+      - /mnt/data/downloads:/downloads
+      # - nzbget-config:/config
+      # - downloads:/downloads
+  samba:
+    image: dperson/samba
+    container_name: samba
+    command: "-n -s public;/share"
+    ports:
+      - 137:137
+      - 139:139
+      - 445:445
+    volumes:
+      - /mnt/data/downloads:/share/downloads
+      - /mnt/data/videos/tv:/share/tv
+      - /mmt/data/videos/movies:/share/movies
+
+# volumes:
+#   downloads:
+#   sonarr-config:
+#   couchpotato-config:
+#   transmission-config:
+#   nzbget-config:
+#   tv:
+#   movies:
+
+# vim: set ft=yaml et ts=2 sw=2 :

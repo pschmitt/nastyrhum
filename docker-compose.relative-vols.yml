@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  sonarr:
+    volumes:
+      - /dev/rtc:/dev/rtc:ro
+      - ./data/config/sonarr:/config
+      - ./data/downloads:/downloads
+      - ./data/videos/tv:/tv
+  couchpotato:
+    volumes:
+      - ./data/config/couchpotato:/config
+      - ./data/downloads:/downloads
+      - ./data/videos/movies:/movies
+  transmission:
+    volumes:
+      - ./data/config/transmission:/data/transmission-home
+      - ./data/downloads:/downloads
+      - ./data/.incomplete:/data/incomplete
+      - ./data/.watchdir:/data/watch
+      - /etc/localtime:/etc/localtime:ro
+  nzbget:
+    volumes:
+      - ./data/config/nzbget:/config
+      - ./data/downloads:/downloads
+  samba:
+    volumes:
+      - ./data/downloads:/share/downloads
+      - ./data/videos/tv:/share/tv
+      - ./data/videos/movies:/share/movies
+
+# vim: set ft=yaml et ts=2 sw=2 :
