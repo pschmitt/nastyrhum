@@ -104,6 +104,19 @@ services:
       - /mnt/data/downloads:/share/downloads
       - /mnt/data/videos/tv:/share/tv
       - /mmt/data/videos/movies:/share/movies
+  nfs:
+    image: cpuguy83/nfs-server
+    container_name: nfs
+    network_mode: host
+    privileged: true
+    command: "/share"
+    ports:
+      - 111:111/udp
+      - 2049:2049
+    volumes:
+      - /mnt/data/downloads:/share/downloads
+      - /mnt/data/videos/tv:/share/tv
+      - /mmt/data/videos/movies:/share/movies
 
 # volumes:
 #   downloads:

@@ -28,5 +28,10 @@ services:
       - ./data/downloads:/share/downloads
       - ./data/videos/tv:/share/tv
       - ./data/videos/movies:/share/movies
+  nfs:
+    volumes:
+      - ./data/downloads:/share/downloads
+      - ./data/videos/tv:/share/tv
+      - ./data/videos/movies:/share/movies
 
 # vim: set ft=yaml et ts=2 sw=2 :
