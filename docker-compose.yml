@@ -43,6 +43,9 @@ services:
     restart: always
     privileged: true
     # user: "1000:100"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     ports:
       - 9091:9091
     environment:
