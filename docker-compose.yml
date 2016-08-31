@@ -95,13 +95,14 @@ services:
   samba:
     image: dperson/samba
     container_name: samba
-    command: "-n -s public;/share"
+    command: "-s public;/share"
     ports:
       - 137:137
       - 139:139
       - 445:445
     environment:
       - TZ=Europe/Paris
+      - NMBD=true
     volumes:
       - /mnt/data/downloads:/share/downloads
       - /mnt/data/videos/tv:/share/tv
