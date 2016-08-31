@@ -100,6 +100,8 @@ services:
       - 137:137
       - 139:139
       - 445:445
+    environment:
+      - TZ=Europe/Paris
     volumes:
       - /mnt/data/downloads:/share/downloads
       - /mnt/data/videos/tv:/share/tv
