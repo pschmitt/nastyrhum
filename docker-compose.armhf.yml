@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  sonarr:
+    image: pschmitt/sonarr-armhf
+  couchpotato:
+    image: pschmitt/couchpotato-armhf
+  transmission:
+    image: pschmitt/transmission-openvpn-armhf
+  transmission-proxy:
+    image: pschmitt/transmission-openvpn-proxy-armhf
+  nzbget:
+    image: pschmitt/nzbget-armhf
+  samba:
+    image: drakulix/armhf-samba
+  nfs:
+    image: pschmitt/nfs-server-armhf
+
+# vim: set ft=yaml et ts=2 sw=2 :
