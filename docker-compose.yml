@@ -59,7 +59,7 @@ services:
       - TRANSMISSION_RPC_WHITELIST=*.*.*.*
       - TRANSMISSION_RATIO_LIMIT=0
       - TRANSMISSION_RATIO_LIMIT_ENABLED=true
-      # - TRANSMISSION_UMASK=0
+      - TRANSMISSION_UMASK=0
       # - LOCAL_NETWORK=10.115.192.244/25
     volumes:
       # - ./data/config/transmission:/data
