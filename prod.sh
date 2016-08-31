@@ -4,5 +4,5 @@
 
 docker-compose -f docker-compose.yml \
                -f docker-compose.credentials.yml \
-               "$ARG" \
+               $ARG \
                "$@"
