@@ -1,0 +1,30 @@
+# nastyrhum
+
+This repo holds everything needed to run on a NAS.
+
+## Installation
+
+Step 1: Review the content of `install.sh`
+
+Step 2:
+
+```bash
+curl -sSL "https://raw.githubusercontent.com/pschmitt/nastyrhum/master/install.sh" | sudo bash
+```
+
+## ARM
+
+ARM uses other, ARMhf specific images. Confer `docker-compose.armhf.yml`
+
+### NFS Server
+
+On the Raspberry Pi one needs to install some dependencies for the NFS server to
+work:
+
+```bash
+apt install nfs-kernel-server
+modprobe nfs nfsd
+```
+
+FIXME: Is the `modprobe` call necessary? Isn't a reboot enough? ie. do these
+kernel modules get loaded automatically?
