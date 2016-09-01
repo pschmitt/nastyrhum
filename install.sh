@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEST=/srv/nastyrhum
+DEST=${DEST:-/srv/nastyrhum}
 
 if [[ $EUID -ne 0 ]]
 then
