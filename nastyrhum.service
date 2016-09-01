@@ -1,0 +1,17 @@
+[Unit]
+Description=Dockerized nastyruhm
+Requires=docker.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+TimeoutStopSec=30
+Restart=always
+RestartSec=30
+WorkingDirectory=/srv/nastyrhum
+ExecStart=/srv/nastyrhum/prod.sh up
+ExecStop=/srv/nastyrhum/prod.sh down
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
