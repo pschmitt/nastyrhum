@@ -55,6 +55,7 @@ sed "s|\(OPENVPN_PROVIDER\)=.*|\1=$vpn_provider|;
      "$DEST/docker-compose.credentials.yml"
 
 echo
-echo "Setup complete!"
+echo "Setup complete! All what's left to do is start the service:"
+echo "# systemctl start nastyrhum.service"
 echo
 echo "You can edit your credentials here: $DEST/docker-compose.credentials.yml"
