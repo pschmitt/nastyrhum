@@ -46,8 +46,6 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
-    ports:
-      - 9091:9091
     environment:
       - OPENVPN_PROVIDER=PIA
       - OPENVPN_CONFIG=Switzerland
@@ -76,7 +74,7 @@ services:
     links:
       - transmission
     ports:
-      - 8080:8080
+      - 9091:8080
     volumes:
       - /etc/localtime:/etc/localtime:ro
   nzbget:
