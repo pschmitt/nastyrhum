@@ -42,32 +42,11 @@ then
 fi
 
 echo
-
-if [[ -z "$SKIP_SETUP" ]]
-then
-    echo "SETUP"
-    read -rp "VPN Provider: " vpn_provider
-    read -rp "VPN Account Username: " vpn_username
-    read -rsp "VPN Account Password: " vpn_password; echo
-    read -rp "VPN Exit Point: " vpn_exit_point
-
-    sed "s|\(OPENVPN_PROVIDER\)=.*|\1=$vpn_provider|;
-         s|\(OPENVPN_CONFIG\)=.*|\1=$vpn_exit_point|;
-         s|\(OPENVPN_USERNAME\)=.*|\1=$vpn_username|;
-         s|\(OPENVPN_PASSWORD\)=.*|\1=$vpn_password|" \
-         "${CREDENTIALS_FILE}.sample" > \
-         "${CREDENTIALS_FILE}"
-
-    echo
-    echo "Setup complete! All what's left to do is start the service:"
-    echo "# systemctl start nastyrhum.service"
-    echo
-    echo "You can edit your credentials here: $CREDENTIALS_FILE"
-else
-    echo "Please configure your credentials at $CREDENTIALS_FILE"
-    echo "NOTE: There is a sample config at ${CREDENTIALS_FILE}.sample"
-    echo
-    echo "To start the service:"
-    echo "# systemctl start nastyrhum.service"
-    echo
-fi
+echo "Setup complete! All what's left to do is configure the vpn and start the service:"
+echo
+echo "Adjust the credentials here: $CREDENTIALS_FILE"
+echo "NOTE: There is a sample config at ${CREDENTIALS_FILE}.sample"
+echo
+echo "To start the service:"
+echo "# systemctl start nastyrhum.service"
+echo

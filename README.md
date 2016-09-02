@@ -19,12 +19,6 @@ the `DEST` environment variable:
 DEST=/tmp/ntr ./install.sh
 ```
 
-Similarly you can skip the setup by setting `SKIP_SETUP`:
-
-```bash
-SKIP_SETUP=1 DEST=/tmp/ntr ./install.sh
-```
-
 ## ARM
 
 ARM uses other, ARMhf specific images. Confer `docker-compose.armhf.yml`
