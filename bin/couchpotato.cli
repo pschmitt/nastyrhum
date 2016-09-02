@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+api_key() {
+    # Extract the api_key from the running couchpotato container
+    docker exec -it couchpotato awk -F " ?= ?" '/api_key/ {print $2;exit;}' /config/config.ini | tr -d '\r'
+}
+
+download_dir() {
+    # Extract the download directory from the couchpotato container config
+    docker exec -it couchpotato awk -F " ?= ?" '/from/ {print $2;exit;}' /config/config.ini | tr -d '\r'
+}
+
+usage() {
+    echo "$(basename $0) rename|help"
+}
+
+rename() {
+    # Run the rename function that renames/moves downloaded files
+    # Usage: rename API_KEY
+    curl http://localhost:5050/api/$1/renamer.scan
+    echo
+}
+
+retry_failed() {
+    # Remove all the "XXX.failed_rename.ignore" files in the download dir
+    docker exec -it couchpotato find "$(download_dir)" -type f -iname "*.failed_rename.ignore" -exec rm {} \;
+}
+
+API_KEY=$(api_key)
+
+if [[ -z "$API_KEY" ]]
+then
+    echo "Failed to retrieve API key."
+    exit 3
+fi
+
+case "$1" in
+    -h|--help|help|h)
+        usage
+        ;;
+    rename)
+        case "$2" in
+             --failed|-f)
+                 retry_failed "$API_KEY"
+                 ;;
+        esac
+        rename "$API_KEY"
+        ;;
+    *)
+        echo "Unknown action"
+        exit 2
+        ;;
+esac
