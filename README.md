@@ -16,13 +16,13 @@ To install to another directory than the default (`/srv/nastyrhum`) you can use
 the `DEST` environment variable:
 
 ```bash
-DEST=~/tmp/ntr ./install.sh
+DEST=/tmp/ntr ./install.sh
 ```
 
 Similarly you can skip the setup by setting `SKIP_SETUP`:
 
 ```bash
-SKIP_SETUP=1 DEST=~/tmp/ntr ./install.sh
+SKIP_SETUP=1 DEST=/tmp/ntr ./install.sh
 ```
 
 ## ARM
