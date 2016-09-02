@@ -9,8 +9,8 @@ TimeoutStopSec=30
 Restart=always
 RestartSec=30
 WorkingDirectory=/srv/nastyrhum
-ExecStart=/srv/nastyrhum/prod.sh up
-ExecStop=/srv/nastyrhum/prod.sh down
+ExecStart=/srv/nastyrhum/run.sh up
+ExecStop=/srv/nastyrhum/run.sh down
 NotifyAccess=all
 
 [Install]
